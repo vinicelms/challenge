@@ -1,0 +1,36 @@
+name: Terraform CD - Apply
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  apply:
+    name: Apply
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out
+      uses: actions/checkout@v2.3.4
+    - name: "AWS Credentials"
+      run: |
+        mkdir -p ~/.aws
+        echo "[default]" > ~/.aws/credentials
+        echo "aws_access_key_id = ${{ secrets.AWS_ACCESS_KEY_ID }}" >> ~/.aws/credentials
+        echo "aws_secret_access_key = ${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> ~/.aws/credentials
+    - name: Terraform CLI
+      uses: hashicorp/setup-terraform@v1.2.1
+      with:
+        terraform_version: 1.0.0
+    - name: Terraform Init - Network
+      run: terraform init -input=false
+      working-directory: project-files/terraform/network
+    - name: Terraform Apply - Network
+      run: terraform apply -auto-approve
+      working-directory: project-files/terraform/network
+    - name: Terraform Init - K8s
+      run: terraform init -input=false
+      working-directory: project-files/terraform/k8s
+    - name: Terraform Apply - K8s
+      run: terraform apply -auto-approve
+      working-directory: project-files/terraform/k8s
