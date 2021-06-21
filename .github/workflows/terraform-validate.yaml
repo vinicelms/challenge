@@ -1,0 +1,29 @@
+name: Terraform CI - Plan
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  validate:
+    name: Validate
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out
+      uses: actions/checkout@v2.3.4
+    - name: Terraform CLI
+      uses: hashicorp/setup-terraform@v1.2.1
+      with:
+        terraform_version: 1.0.0
+    - name: Terraform Init - Network
+      run: terraform init -input=false
+      working-directory: project-files/terraform/network
+    - name: Terraform Validate - Network
+      run: terraform validate
+      working-directory: project-files/terraform/network
+    - name: Terraform Init - K8s
+      run: terraform init -input=false
+      working-directory: project-files/terraform/k8s
+    - name: Terraform Validate - K8s
+      run: terraform validate
