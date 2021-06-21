@@ -3,7 +3,7 @@ name: Terraform CD - Apply
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   apply:
@@ -25,12 +25,12 @@ jobs:
     - name: Terraform Init - Network
       run: terraform init -input=false
       working-directory: project-files/terraform/network
-    - name: Terraform Apply - Network
-      run: terraform apply -auto-approve
-      working-directory: project-files/terraform/network
+#   - name: Terraform Apply - Network
+#     run: terraform apply -auto-approve
+#     working-directory: project-files/terraform/network
     - name: Terraform Init - K8s
       run: terraform init -input=false
       working-directory: project-files/terraform/k8s
-    - name: Terraform Apply - K8s
-      run: terraform apply -auto-approve
-      working-directory: project-files/terraform/k8s
+#   - name: Terraform Apply - K8s
+#     run: terraform apply -auto-approve
+#     working-directory: project-files/terraform/k8s
