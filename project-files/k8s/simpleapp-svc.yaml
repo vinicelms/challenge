@@ -1,0 +1,15 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: simpleapp-service
+  namespace: prova
+  labels:
+    name: simpleapp
+spec:
+  type: ClusterIP
+  selector:
+    name: simpleapp
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80
