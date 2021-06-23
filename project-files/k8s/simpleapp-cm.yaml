@@ -4,4 +4,4 @@ metadata:
   name: simpleapp-configmap
   namespace: prova
 data:
-  Code: 1337
+  Code: "1337"
