@@ -15,3 +15,10 @@ kubectl apply -f challenge-ingress.yaml
 > Este processo tem como pré-requisito que o binário do `kubectl` está instalado e com comunicação pré-estabelecida com o cluster Kubernetes.
 > - - -
 > Caso não compreenda como configurar o uso do `kubectl`, veja a seção [Como obter conexão ao cluster](../terraform/README.md)
+
+## Instalando o Ingress Nginx:
+
+- Execute:
+```shell
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v0.47.0/deploy/static/provider/aws/deploy.yaml
+```
