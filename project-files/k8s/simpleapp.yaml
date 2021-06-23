@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: simpleapp
-        image: vinicelms/devops-challenge
+        image: vinicelms/devops-challenge:1
         envFrom:
         - configMapRef:
             name: simpleapp-configmap
