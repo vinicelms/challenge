@@ -1,0 +1,20 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/cors-allow-methods: "GET"
+  name: challenge-ingress
+  namespace: prova
+spec:
+  rules:
+  - host: app.prova
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: simpleapp-service
+          servicePort: 80
+      - path: /health
+        backend:
+          serviceName: simpleapp-service
+          servicePort: 80
