@@ -19,3 +19,10 @@ spec:
         backend:
           serviceName: simpleapp-service
           servicePort: 80
+  - host: kibana.prova
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: kibana-service
+          servicePort: 80
