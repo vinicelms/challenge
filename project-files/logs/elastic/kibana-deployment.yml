@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: kibana
+  name: kibana-deployment
+  namespace: logs
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kibana
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+    type: RollingUpdate
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: kibana
+    spec:
+      containers:
+      - env:
+        - name: SERVER_NAME
+          value: kibana.prova
+        - name: ELASTICSEARCH_HOSTS
+          value: http://elasticsearch-logs-master:9200
+        image: docker.elastic.co/kibana/kibana:7.5.2
+        imagePullPolicy: IfNotPresent
+        name: kibana
+        resources:
+          limits:
+            memory: "1024Mi"
+          requests:
+            memory: "1024Mi"
+        ports:
+        - containerPort: 5601
+          protocol: TCP

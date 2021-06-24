@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: kibana-service
+  namespace: logs
+  labels:
+    app: kibana
+spec:
+  ports:
+    - port: 80
+      targetPort: 5601
+      name: kibana-service
+  selector:
+    app: kibana
