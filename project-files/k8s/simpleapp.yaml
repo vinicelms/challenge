@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: simpleapp-deployment
+  namespace: prova
+  labels:
+    name: simpleapp
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: simpleapp
+  template:
+    metadata:
+      labels:
+        name: simpleapp
+    spec:
+      containers:
+      - name: simpleapp
+        image: vinicelms/devops-challenge:1
+        envFrom:
+        - configMapRef:
+            name: simpleapp-configmap
+        resources:
+          limits:
+            memory: "256Mi"
+          requests:
+            memory: "32Mi"
+        livenessProbe:
+          failureThreshold: 5
+          initialDelaySeconds: 2
+          httpGet:
+            path: /health
+            port: 80
+        readinessProbe:
+          failureThreshold: 5
+          initialDelaySeconds: 2
+          httpGet:
+            path: /health
+            port: 80
+        ports:
+        - containerPort: 80
